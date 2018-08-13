@@ -1,29 +1,23 @@
 <template>
   <div class="home">
-    <h1>{{msg}}</h1>
-    <NewTodo></NewTodo>
-    <TodoList></TodoList>
+    <form @submit.prevent="add1">
+    	<input type="text" name="newTodo" placeholder="new todo" v-model="newtodo">
+    </form>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
-import NewTodo from '@/components/NewTodo.vue'
-import TodoList from '@/components/TodoList.vue'
 import {mapState,mapActions} from 'vuex'
 export default {
-  name: 'home',
+  name: 'newtodo',
   computed:mapState(['todos','msg']),
-  components: {
-    TodoList,NewTodo
-  },
   data(){
   	return{newtodo:''}
   },
   methods:{
   	...mapActions([
-      'remove',
       'add'
     ]),
   	add1:function(){
