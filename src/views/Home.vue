@@ -5,13 +5,11 @@
     <TodoList></TodoList>
   </div>
 </template>
-
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 import NewTodo from '@/components/NewTodo.vue'
 import TodoList from '@/components/TodoList.vue'
 import {mapState,mapActions} from 'vuex'
+import axios from 'axios';
 export default {
   name: 'home',
   computed:mapState(['todos','msg']),
@@ -29,7 +27,18 @@ export default {
   	add1:function(){
   		this.add(this.newtodo)
   		this.newtodo = ''
-  	}
-  }
+  	},
+  },
+   mounted(){
+      // var url  = 'https://api.coindesk.com/v1/bpi/currentprice.json'
+      var url  = '/api/1'
+      axios ({
+            url:url,
+            method: 'get',
+        })
+        .then( res => {console.log(res.data)} )
+        .catch( err => console.error(err))
+    }
+
 }
 </script>
