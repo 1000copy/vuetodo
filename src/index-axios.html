@@ -1,0 +1,27 @@
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<a href='/todos'>todos</a>
+<a href='/todo/1'>todo/1</a>
+<button onclick='remove()'>remove 1</button>
+<button onclick='create()'>create</button>
+<script>
+  function remove(){
+    axios ({
+      	url:'/todo/1',
+        method: 'DELETE',
+    })
+    .then( res => console.log(res.json()))
+    .catch( err => cosole.error(err))
+  }
+  function create(){
+    axios ({
+        method: 'POST',
+        url:'/todo',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: JSON.stringify({id: "4", subject: "s4"})
+    })
+    .then( res => console.log(res.json()))
+    .catch( err => cosole.error(err))
+  }
+</script>

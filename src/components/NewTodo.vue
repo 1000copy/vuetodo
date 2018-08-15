@@ -1,14 +1,11 @@
 <template>
   <div class="home">
     <form @submit.prevent="add1">
-    	<input type="text" name="newTodo" placeholder="new todo" v-model="newtodo">
+    	 <b-input type="text" name="newTodo" placeholder="new todo" v-model="newtodo"></b-input>
     </form>
   </div>
 </template>
-
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 import {mapState,mapActions} from 'vuex'
 export default {
   name: 'newtodo',

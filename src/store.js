@@ -1,15 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
 Vue.use(Vuex)
-
 export default new Vuex.Store({
   state: {
-  	msg:'abc',
+  	msg:'Todo App',
   	todos:[
-      'http://google.com',
-      'http://coursetro.com',
-      'http://youtube.com'
+      'Eating',
+      'Loving',
+      'Writing'
     ]
   },
   mutations: {

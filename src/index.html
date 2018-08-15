@@ -1,0 +1,30 @@
+<a href='/todos'>todos</a>
+<a href='/todo/1'>todo/1</a>
+<button onclick='remove()'>remove 1</button>
+<button onclick='create()'>create</button>
+<script>
+  function remove(){
+    fetch (
+      '/todo/1',
+      {
+        method: 'DELETE',
+      }
+    )
+    .then( res => console.log(res.json()))
+    .catch( err => cosole.error(err))
+  }
+  function create(){
+    fetch (
+      '/todo',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id: "4", subject: "s4"})
+      }
+    )
+    .then( res => console.log(res.json()))
+    .catch( err => cosole.error(err))
+  }
+</script>
