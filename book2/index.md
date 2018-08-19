@@ -1,11 +1,11 @@
 # outline
 
-1. 使用Vuejs脚手架，快速搭建一个{id，name}的对象进行CRD的界面。这里会使用vuex管理状态，使用vue-router管理路由。完成部分验证代码，代码位于github：
-2. 使用Mongodb存储和提供后端CRD服务。第一版完成： https://juejin.im/post/5b727a9451882561195114cd
-3. 使用Nodejs搭建{id，name}的对象的后端CRD服务。计划参考之前我自己的2篇文章和一个SO关于如何在AJAX内创建PUT请求的问答
-- 准备 JSON 服务器并访问它 https://juejin.im/post/59125c13128fe10058660800
-- vuejs api server开发小抄 https://segmentfault.com/a/1190000007749465
-- Axios PUT request to server https://stackoverflow.com/questions/44103187/axios-put-request-to-server
+1. 使用Vuejs脚手架，快速搭建一个{id，name}的对象进行CRD的界面。这里会使用vuex管理状态，使用vue-router管理路由。完成部分验证代码
+2. 使用Mongodb存储和提供后端CRD服务。
+3. 使用Nodejs搭建{id，name}的对象的后端CRD服务。
+- [准备 JSON 服务器并访问它](https://juejin.im/post/59125c13128fe10058660800)
+- [vuejs api server开发小抄](https://segmentfault.com/a/1190000007749465)
+- [Axios PUT request to server](https://stackoverflow.com/questions/44103187/)axios-put-request-to-server
 4. 使用Fecth|Axios访问后端CRD服务
 5. 使用bulfy的美化组件的方法
 6. 整合全栈服务
@@ -879,4 +879,48 @@ axios的语法和fetch的大同小异，看着也是比较简洁美观的。以�
 ## cli-service快速参考
 ## Nodejs快速参考
 ## Vuejs快速参考
+## 问题索引
+
+麻雀虽小五脏俱全，虽然是一个小小的示例的应用，但是每样技术也都需要用到，遇到的技术问题也是要一个个的解决的。这里列出我遇到的问题，作为索引，也算记录我在写作过程中解决的问题，也可以作为你学习完毕后的一个查漏补缺的索引，在这里重新看到问题，然后使用代码验证自己对问题的理解和学习。
+
+1. 使用Nodejs如何搭建一个RESTFUL的服务？
+- 如何把cli-service中来自客户端但是需要去应用服务器的URL访问转移到应用服务器？
+- 如何解析前端提交的Json？
+- 如何打包Json到响应内？
+2. 如何加入新的单页组件？
+- 在哪里插入获取服务端数据的代码？
+3. 如何使用Buefy？
+- 在Vuejs应用中内使用Buefy？
+- 在Vuejs单页组件内使用Buefy？
+4. 如何在组件之间共享状态？
+- 为何需要共享前端状态？
+- 如何区别使用同步和异步状态操作？
+- 如何映射状态操作到组件内，以方便组件对方法的调用？
+5. 如何访问Mongo？
+- 如何安装Mongo，并快速验证Mongo？
+- 如何命令行插入、删除、列表一个Collection？
+- 有哪些访问Mongo的Nodejs库，差别在哪里？
+- 如何使用Await风格的代码做插入删除和列表？
+- 如何获取插入项目后的项目ID？
+6. 如何访问网络，包括curl、axios、fetch等几种方法？
+- 如何提交Get请求？
+- 如何提交Put请求？
+- 如何在Body内提交json？
+- 如何指定请求头内容类型为json？
+- 如何获取响应中的Json数据?
+
+
+## 参考文章
+
+这个App虽然很小，但是并非一次写成的，我之前已经完成了若干个更加细小的、特定方面的文章，也写了一些代码。当然外部参考肯定也是不少，特别是Medium和Stack Overflow网站，对我支持很多。这里列出关键的一些参考文章。
+
+1. 这里会使用vuex管理状态，之前有写过文章，[到底Vuex是什么](https://segmentfault.com/a/1190000007516967)，阅读量和评价还不少呢。当然，我举例的案例，有些勉强，为了用而用，实际案例并不需要Vuex，使用组件内状态即可。
+2. 使用Mongodb存储和提供[后端CRD服务](https://juejin.im/post/5b727a9451882561195114cd)
+3. 使用Nodejs搭建{id，name}的对象的后端CRD服务。计划参考之前我自己的2篇文章和一个SO关于如何在AJAX内创建PUT请求的问答
+- [准备 JSON 服务器并访问它](https://juejin.im/post/59125c13128fe10058660800)
+- [vuejs api server开发小抄](https://segmentfault.com/a/1190000007749465)
+- [Axios PUT request to server](https://stackoverflow.com/questions/44103187/)axios-put-request-to-server
+4. 使用Fecth|Axios访问后端CRD服务。此文章列举了几种访问网络库的方法，给了我一个全局的视野，因此我很受益于它。[Fetch vs. Axios.js for making http requests
+](https://medium.com/@thejasonfile/fetch-vs-axios-js-for-making-http-requests-2b261cdd3af5)
+5. 使用buefy的美化组件的方法。这个很小众了，因此就只能看看[官方文档](https://buefy.github.io/#/)了。
 
