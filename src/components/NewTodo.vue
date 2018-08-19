@@ -1,7 +1,11 @@
 <template>
   <div class="home">
     <form @submit.prevent="add1">
-    	 <b-input type="text" name="newTodo" placeholder="new todo" v-model="newtodo"></b-input>
+    	 <b-input type="text" name="newTodo" 
+       placeholder="new todo" v-model="newtodo"
+       autocomplete="off"
+       autofocus
+       ></b-input>
     </form>
   </div>
 </template>

@@ -31,13 +31,13 @@ export default {
   },
    mounted(){
       // var url  = 'https://api.coindesk.com/v1/bpi/currentprice.json'
-      var url  = '/api/1'
-      axios ({
-            url:url,
-            method: 'get',
-        })
-        .then( res => {console.log(res.data)} )
-        .catch( err => console.error(err))
+      // var url  = '/api/1'
+      // axios ({
+      //       url:url,
+      //       method: 'get',
+      //   })
+      //   .then( res => {console.log(res.data)} )
+      //   .catch( err => console.error(err))
     }
 
 }

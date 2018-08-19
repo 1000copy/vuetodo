@@ -1,8 +1,8 @@
 <template>
   <div class="hello">
     <ul>
-    	<li v-for="(todo,index) in todos" v-bind:key="index">
-    		{{todo}}<button @click="remove(index)" class="rm">remove</button>
+    	<li v-for="(todo,index) in todos" v-bind:key="todo.id">
+    		{{todo.subject}}<button @click="remove(todo.id)" class="rm">remove</button>
     	</li>
     </ul>
   </div>
