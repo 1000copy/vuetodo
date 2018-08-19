@@ -13,6 +13,36 @@ function indexById(todos,id){
   }
   return -1
 }
+function httpadd(subject,cb){
+  axios ({
+        method: 'POST',
+        url:'/api/todo',
+        headers:[{'Content-Type':'application/json'}],
+        data: {subject:subject}
+      })
+      .then( res => cb(res.data))
+      .catch( err => console.error(err))
+}
+function httpremove(id,cb){
+  axios ({
+        url:'/api/todo/'+id,
+        method: 'delete',
+      })
+      .then( res => {
+          cb()
+      })
+      .catch( err => console.error(err))
+}
+function httpreload(cb){
+  axios ({
+        url:'/api/todos',
+        method: 'get',
+      })
+      .then( res => {
+          cb(res.data)
+      })
+      .catch( err => console.error(err))
+}
 import axios from 'axios'
 export default new Vuex.Store({
   state: {
@@ -21,23 +51,21 @@ export default new Vuex.Store({
   },
   mutations: {
   	add(state,subject){
-      axios ({
-        method: 'POST',
-        url:'/api/todo',
-        headers:[{'Content-Type':'application/json'}],
-        data: {subject:subject}
-        // data: JSON.stringify({subject:subject})
+      httpadd(subject,function(todo){
+        state.todos.push(todo)
       })
-      .then( res => {state.todos.push(res.data)})
-      .catch( err => console.error(err))
-  		// state.todos.push({id:subject,subject:subject})
   	},
   	remove(state,id){
-      // console.log(id)
-  		state.todos.splice(indexById(state,id),1)
+      httpremove(id,function(){
+        state.todos.splice(indexById(state.todos,id),1)  
+      })
   	},
     reload(state){
-      state.todos = defaultTodo
+      httpreload(function(todos){
+        // console.log(todos)
+        state.todos = todos
+      })
+      // state.todos = defaultTodo
     }
   },
   actions: {

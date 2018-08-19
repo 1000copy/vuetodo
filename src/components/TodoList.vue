@@ -16,8 +16,11 @@ export default {
   },
   methods:{
   	...mapActions([
-      'remove',
+      'remove','reload'
     ])
+  },
+  mounted(){
+    this.reload()
   }
 }
 </script>
