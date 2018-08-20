@@ -1,91 +1,71 @@
-# outline
-
-1. 使用Vuejs脚手架，快速搭建一个{id，name}的对象进行CRD的界面。这里会使用vuex管理状态，使用vue-router管理路由。完成部分验证代码
-2. 使用Mongodb存储和提供后端CRD服务。
-3. 使用Nodejs搭建{id，name}的对象的后端CRD服务。
-- [准备 JSON 服务器并访问它](https://juejin.im/post/59125c13128fe10058660800)
-- [vuejs api server开发小抄](https://segmentfault.com/a/1190000007749465)
-- [Axios PUT request to server](https://stackoverflow.com/questions/44103187/)axios-put-request-to-server
-4. 使用Fecth|Axios访问后端CRD服务
-5. 使用bulfy的美化组件的方法
-6. 整合全栈服务
 
 # 急速JavaScript全栈教程
 
 自从一年前发布了[Vuejs小书](http://www.ituring.com.cn/book/1956)的电子书，也有些日子没有碰过它们了，现在因为项目的缘故，需要使用JavaScript全栈开发。所以，我得把这个全栈环境搭建起来。
 
+整个系列，是会采用我的一贯风格，就是不疾不徐，娓娓道来，学习完毕，你可以掌握我提到的全系列的知识，并且得到一个可以直接拷贝的代码模板，并把它用到你的项目中。
+
+如果缺乏对文字的耐心，不妨先下载代码，把工程项目跑起来再来看。本教程的所以可运行代码的文字，都可以在[仓库Vuetodo](https://github.com/1000copy/vuetodo)看到。可以先star它，然后在下载阅读。
+
 ## 前端的复杂度
 
-很多人以为JavaScript开发嘛，不过就是一些就是一些脚本和标签。说这话的时候，请留意，如果你在坐着，就背往后靠，翘起二郎腿，如果是站，那么抱起棒子，眼睛往下看。前端因为还在快速发展，因此很多东西在变，构造环境的选择比较多，技术种类也不少，很多事情得自己做。因此它其实并不比那么简单的。这篇文章的图，可以窥视到前端复杂的一角了。[Modern Frontend Developer in 2018](https://medium.com/tech-tajawal/modern-frontend-developer-in-2018-4c2072fa2b9c)。
+很多人是看不起JavaScript开发的。这玩意不就是玩具嘛,一些脚本和标签而已。说这话的时候，他们可能是就翘起二郎腿的，或者抱着膀子的。
+
+然而，前端因为还在快速发展，因此很多东西在变，构造环境的选择比较多，技术种类也不少，很多事情得自己做。因此它其实并不比那么简单的。这篇文章的图，可以窥视到前端复杂的一角了。[Modern Frontend Developer in 2018](https://medium.com/tech-tajawal/modern-frontend-developer-in-2018-4c2072fa2b9c)。
 
 我看了不少资料，很多都是讲解这张图中的一个技术，讲解全栈的肯定是有的，但是往往过于复杂。本文试图通过一组文章，把JavaScript的全栈开发做一个全景的展示，力图使用一个案例，全须全尾的贯穿整个系列，便于初学者对技术的急速理解。
 
 
+## 大纲
 
 所以，文章会包括这些：
 
-1. 使用Vuejs脚手架，快速搭建一个{id，name}的对象进行CRD的界面。这里会使用vuex管理状态，使用vue-router管理路由。完成部分验证代码，代码位于github：
+1. 使用Vuejs脚手架，快速搭建一个CRD用户界面。会使用vuex管理状态，使用vue-router管理路由。
 2. 使用Mongodb存储和提供后端CRD服务。
-3. 使用Nodejs搭建{id，name}的对象的后端CRD服务。
-- 准备 JSON 服务器并访问它
-- vuejs api server开发小抄 
-- Axios PUT request to server
+3. 使用Nodejs搭建后端CRD服务。
 4. 使用Fecth|Axios访问后端CRD服务
 5. 使用bulfy的美化组件的方法
 6. 整合全栈服务
 
-整个系列，是会采用我的一贯风格，就是不疾不徐，娓娓道来，学习完毕，你可以掌握我提到的全系列的知识，并且得到一个可以直接拷贝的代码模板，并把它用到你的项目中。
+其中的CRD指的是Create、Read、Delete。针对的数据对象，就是一个Todo对象，看起来是这样的：
 
+  {id:1,subject:"Loving"}
 
-## 最小的全栈应用案例
+如果是多个数据对象，看起来是这样的：
+
+    [
+      {id:1,subject:"Loving"}，
+      {id:1,subject:"Writing"}，
+      {id:1,subject:"Preying"}
+    ]
+
+这个看起来很简单平实的JS对象，会在一组组函数、模块和对象之间流动，甚至跨越网络边界，从内存到硬盘。它会被存储在Mongodb内，也会从Mongodb提取出来，在用户界面、HTTP客户端，HTTP服务器传递。
+
+整个App看起来就是一台机器，可以说代码在运转这个机器，但是也不妨说是数据在驱动这个它。
 
 
 ### 使用Vuejs脚手架，快速搭建Todo App界面
 
 我们给自己命题，做一个TODO应用，它看起来是这样的：
 
-<div >
-<h1>Todo App</h1>
-<div>
-<form><input type="text" name="newTodo" placeholder="new todo"></form>
-</div>
-<div><ul><li >
-      Loving<button >remove</button></li><li>
-      Writing<button >remove</button></li><li>
-      Preying<button >remove</button></li></ul>
-</div></div>
+![Todo App](images/todoapp.png)
 
 用户可以看到一个编辑框，和一个清单。
 
 1. 在编辑框内加入新的todo项目，按回车即可加入到列表
 2. 列表内每个项目有一个按钮，点击按钮，可以删除当前项目
 
-这是这么简单。有界面就会有数据，我们的数据对象被称为Todo，看起来是这样的：
-
-	{id:1,subject:"Loving"}
-
-如果是多个数据对象，看起来是这样的：
-
-	[
-		{id:1,subject:"Loving"}，
-		{id:1,subject:"Writing"}，
-		{id:1,subject:"Preying"}
-	]
-
-这个看起来很简单平实的JS对象，会在一组组函数、模块和对象之间流动，甚至跨越网络边界，从内存到硬盘。它会被存储在Mongodb内，也会从Mongodb提取出来，在用户界面、HTTP客户端，HTTP服务器传递。
-
-整个App看起来就是一台机器，可以说代码在运转这个机器，但是也不妨说是数据在驱动这个它。
-
 ## 环境要求
 
-说起来搭建JS全栈开发环境，涉及到的东西真的不少。
+说起来搭建JS全栈开发环境，涉及到的东西真的不少。大的选择是这样的：
 
-大的选择是这样的：
 1. 前端采用Vuejs
 2. 后端采用Nodejs
 3. 存储使用Mongodb。
 
-大的定了，小的也就跟着来，前端配套的话需要一系列的技术，下面分解讲解。特别是前端，对应着Vuejs，配套管理路由、状态、组件的都有相应的技术手段。自己搭配的话，还是非常麻烦的。幸好Vuejs还有一个前端脚手架工具vue-cli，它可以把以上的组件整合起来到一个工程内。一个最为基础的vue-cli工程脚手架的创建，现在得需要160M左右的空间占用。在我的电脑和网络情况下，需要2分半的时间才会完成，可见如今的前端开发已经变得越来越复杂了。
+大的选择定了，小的配套也就跟着来，前端配套的话需要一系列的技术，特别是前端，对应着Vuejs，配套管理路由、状态、组件的都有相应的技术手段。自己搭配的话，还是非常麻烦的。
+
+幸好Vuejs还有一个前端脚手架工具vue-cli，它可以把以上的组件整合起来到一个工程内。一个最为基础的vue-cli工程脚手架的创建，现在得需要160M左右的空间占用。在我的电脑和网络情况下，需要2分半的时间才会完成。
 
 ###  前端 Vuejs
 
@@ -170,45 +150,56 @@
 
 [Axios](https://www.npmjs.com/package/axios)是一个封装了HTTPClient的库，提供了promise接口。我们使用它访问后端的HTTP Server的数据。之前提到的数据对象，就是由Axios提取到客户端，也会是通过Axios把数据对象提交到服务器的。
 
-### 编码
+### 前端编码
 
 首先，我们从状态开始。我们之前提到的Vuex，是Vuejs管理状态的官方插件。所谓的状态，就是应用程序的数据对象们。也就是我们提到的Todo对象和Todo对象集合。我们在App用户界面上看到的很多数据都是来自于状态对象。状态对象在src/store.js。不仅仅是的应用状态信息，还有和对这些的操作函数。既然需要一个todo项目清单，因此应该加入如下代码：
 
     import Vue from 'vue'
     import Vuex from 'vuex'
     Vue.use(Vuex)
+    const defaultTodo = [
+          {id:1,subject:'Eating'},
+          {id:2,subject:'Loving'},
+          {id:3,subject:'Preying'},
+        ]
+    function indexById(todos,id){
+      for (var i = 0; i < todos.length; i++) {
+        if (id == todos[i].id)
+          return i
+      }
+      return -1
+    }
+    import axios from 'axios'
     export default new Vuex.Store({
       state: {
         msg:'Todo App',
-        todos:[
-          'Eating',
-          'Loving',
-          'Writing'
-        ]
+        todos:defaultTodo
       },
       mutations: {
-        add(state,todo){
+        add(state,subject){
+          var todo = {id:subject,subject:subject}
           state.todos.push(todo)
         },
-        remove(state,todo){
-          state.todos.splice(todo,1)
+        remove(state,id){
+          state.todos.splice(indexById(state.todos,id),1)
         },
-        load(state,todos){
-          state.todos = todos
-        },
+        reload(state){
+          state.todos = defaultTodo
+        }
       },
       actions: {
-        add: (context, link) => {     
+      add: (context, link) => {
           context.commit("add", link)
         },
-        remove: (context, link) => {    
+        remove: (context, link) => {
           context.commit("remove", link)
         },
-        load: (context,todos) => {    
-          context.commit("load", todos)
+        reload: (context) => {
+          context.commit("reload")
         }
       }
     })
+
 
 其中的state.todos属性，就是我们的主要的数据对象了。state.msg这是提供了一个App的标题字符串。mutations属性内是对数据修改提供的方法，比如
 1. 我们需要添加一个todo，使用add()方法，相应的
@@ -220,6 +211,8 @@
     context.commit()
 
 的语法，提供和actions和mutations方法的对接。第一个参数是mutations的方法名称，之后的参数最为mutations方法的参数传递给mutations方法。
+
+特别说下，mutations内的add()方法，其中用户界面会提供一个Todo.subject属性，而ID是需要自动生成的，我们这里临时使用subject的值作为id，就是一个偷懒，只要subject不要输入重复，也暂时可以蒙混过关。因为知道本项目内的后台存储会采用Mongodb，在Mongodb内插入一个新的对象后，会自动生成一个ID，我们的Todo对象的id会采用这个ID。这里就没有必要自己生成了。
 
 在src/views/home.vue内，粘贴为如下代码：
 
@@ -297,9 +290,9 @@ TodoList代码：
     <template>
       <div class="hello">
         <ul>
-        	<li v-for="(todo,index) in todos" v-bind:key="index">
-        		{{todo}}<button @click="remove(index)" class="rm">remove</button>
-        	</li>
+          <li v-for="(todo,index) in todos" v-bind:key="todo.id">
+            {{todo.subject}}<button @click="remove(todo.id)" class="rm">remove</button>
+          </li>
         </ul>
       </div>
     </template>
@@ -311,14 +304,18 @@ TodoList代码：
       components: {
       },
       methods:{
-      	...mapActions([
-          'remove',
+        ...mapActions([
+          'remove','reload'
         ])
+      },
+      mounted(){
+        this.reload()
       }
     }
     </script>
     <style scoped>
     </style>
+
 
 在src/main.js文件内，添加如下代码，引入Buefy：
 
@@ -358,7 +355,7 @@ TodoList代码：
 
 现在，我们已经可以看到UI了，但是用户界面内的数据来自于客户端，而不是来自于服务器。我们的数据当然应该来源于服务器的了。因此我们需要启动给一个自己的服务器，这个服务器可以接受客户在界面上录入的新的Todo对象，也可以提供后端数据库内的Todo清单。
 
-为了测试的目的，常常需要准备一个todo应用的后台json服务，可以通过HTTP方式，提供todo项目的增加删除修改和查询。
+为了测试的目的，常常需要准备一个todo应用的后台JSON服务，可以通过HTTP方式，提供todo项目的增加删除修改和查询。
 
 这样的服务器，使用了nodejs作为服务器端，并且使用了两个node模块，可以使用npm安装它们：
 
@@ -376,22 +373,26 @@ TodoList代码：
       var todos = []
       var public = path.join(__dirname, '/')
       app.use('/',express.static(public))
+      const defaultTodo = [
+        {id:1,subject:'Eating'},
+        {id:2,subject:'Loving'},
+        {id:3,subject:'Preying'},
+      ]
       function rs(){
-        todos = [
-        'Eating',
-        'Loving',
-        'Writing']
+        todos = defaultTodo
+      }
+      function indexById(id){
+        for (var i = 0; i < todos.length; i++) {
+          if (id ==todos[i].id)return i
+        }
+        return -1
       }
       rs()
       app.delete('/api/todo/:id', function (req, res) {
         var userkey = +req.params.id
-        todos.splice(userkey,1)
+        todos.splice(indexById(userkey),1)
         res.end( JSON.stringify(todos));
         rs()
-      })
-      app.get('/api/todo/:id', function (req, res) {
-        var userkey = +req.params.id
-        res.end( JSON.stringify(todos[userkey]));
       })
       app.get('/api/todos', function (req, res) {
         res.end( JSON.stringify(todos));
@@ -424,14 +425,9 @@ TodoList代码：
 
         $ curl -X "DELETE" http://localhost:8081/api/todo/1
 
-3. PUT操作
+3. POST操作
 
-      $curl -X PUT  -H "Content-Type: application/json" -d '{"id" : "2","subject":"s2222"}' http://localhost:8081/api/todo/1
-
-
-4. POST操作
-
-      $curl -X POST  -H "Content-Type: application/json" -d '{"id" : "4","subject":"s4"}' http://localhost:8081/api/todo
+      $curl -X POST  -H "Content-Type: application/json" -d '{"subject":"s4"}' http://localhost:8081/api/todo
   
 ## 前端HTML验证
 
@@ -501,7 +497,7 @@ axios的语法和fetch的大同小异，看着也是比较简洁美观的。以�
             headers: {
               'Content-Type': 'application/json'
             },
-            data: JSON.stringify({id: "4", subject: "s4"})
+            data: JSON.stringify({subject: "s4"})
         })
         .then( res => console.log(res.json()))
         .catch( err => cosole.error(err))
@@ -569,64 +565,63 @@ axios的语法和fetch的大同小异，看着也是比较简洁美观的。以�
       }
     };
 
-现在，我们可以修改前端的Axios使用代码，分别替代前端代码的数据装入、数据删除、数据添加的代码，让这些代码可以支持网络操作。虽然看着零散，其实修改代码的文件只有一处，就是src/store.js。只要改成这样既可：
-
-    import Vue from 'vue'
-    import Vuex from 'vuex'
-    Vue.use(Vuex)
+现在，我们可以修改前端的Axios使用代码，分别替代前端代码的数据装入、数据删除、数据添加的代码，让这些代码可以支持网络操作。为了避免网络操作代码和业务逻辑代码混合在一起，我决定包装三个网络操作函数，并把它们放置到src/store.js文件内：
+    
     import axios from 'axios'
-    export default new Vuex.Store({
-      state: {
-        msg:'Todo App',
-        todos:[
-          'Eating',
-          'Loving',
-          'Writing'
-        ]
-      },
-      mutations: {
-        add(state,todo){
-          axios ({
+    function httpadd(subject,cb){
+      axios ({
             method: 'POST',
             url:'/api/todo',
-            data: JSON.stringify(todo)
-        })
-        .then( res => state.todos.push(todo))
-        .catch( err => console.error(err))
-        },
-        remove(state,todo){
-          axios ({
-            url:'/api/todo/'+todo,
+            headers:[{'Content-Type':'application/json'}],
+            data: {subject:subject}
+          })
+          .then( res => cb(res.data))
+          .catch( err => console.error(err))
+    }
+    function httpremove(id,cb){
+      axios ({
+            url:'/api/todo/'+id,
             method: 'delete',
           })
           .then( res => {
-              state.todos.splice(todo,1)
+              cb()
           })
           .catch( err => console.error(err))
-        },
-        load(state){
-          axios ({
+    }
+    function httpreload(cb){
+      axios ({
             url:'/api/todos',
             method: 'get',
           })
           .then( res => {
-            state.todos = res.data
+              cb(res.data)
           })
           .catch( err => console.error(err))
-        },
+    }
+
+分别完成添加、删除、查找的任务，当完成工作后，都会调用一个callback函数，在此函数内，可以消费访问网络后得到的响应数据。
+
+然后把文件内src/store.js的mutations对象改成如下代码：
+
+     mutations: {
+      add(state,subject){
+        httpadd(subject,function(todo){
+          state.todos.push(todo)
+        })
       },
-      actions: {
-        add: (context, link) => {     
-          context.commit("add", link)
-        },
-        remove: (context, link) => {    
-          context.commit("remove", link)
-        },
-        load: (context,todos) => {    
-          context.commit("load", todos)
-        }
+      remove(state,id){
+        httpremove(id,function(){
+          state.todos.splice(indexById(state.todos,id),1)  
+        })
+      },
+      reload(state){
+        httpreload(function(todos){
+          // console.log(todos)
+          state.todos = todos
+        })
+        // state.todos = defaultTodo
       }
-    })
+    },
 
 最后，在TodoList内加入一个新函数，并通过mapActions引入src/store.js的load()函数到当前对象内：
 
@@ -643,108 +638,110 @@ axios的语法和fetch的大同小异，看着也是比较简洁美观的。以�
 
 ## 整合：后端和数据库
 
-原本在后端App Server内Todo数据数组，现在应该从Mongodb获得，原本在添加Todo对象的时候只是添加到AppServer对象内，现在需要同时写入Mongodb，原本在删除时只是从数组删除，现在需要同时在Mongodb内删除。
+要完成后端到数据库的整合，需要做如下的修改：
 
-因此，现在我们需要添加三个函数，分别做获取清单、添加和删除的工作，并且和App Server对应的代码接驳。
+1. 原本在后端App Server内Todo数据数组，现在应该从Mongodb获得
+2. 原本在添加Todo对象的时候只是添加到AppServer对象内，现在需要同时写入Mongodb
+3. 原本在删除时只是从数组删除，现在需要同时在Mongodb内删除
 
-代码如下：
+因此，现在我们需要添加三个函数，分别做针对Mongodb的获取清单、添加和删除的工作：
 
-      var express = require('express');
-      var app = express();
-      var path = require('path')
-      var bodyParser = require('body-parser')
-      app.use(bodyParser.json())
-      var todos = []
-      var public = path.join(__dirname, '/')
-      app.use('/',express.static(public))
-      function rs(){
-        todos = [
-        'Eatingdfddaf',
-        'Loving',
-        'Writing']
-      }
-      const MongoClient = require('mongodb').MongoClient;
+    var mongo = require('mongodb')
+    function insertDoc(subject,callback){
       const connectionString = 'mongodb://localhost:27017';
-      function rs(){
-          (async () => {
-              todos = []
-              const client = await MongoClient.connect(connectionString,
-                  { useNewUrlParser: true });
-              const dbo = client.db('todos');
-              try {
-                 var r = await dbo.collection("todo").find().toArray()
-                 for (var i = 0; i < r.length; i++) {
-                   todos.push({_id:r[i]._id,subject:r[i].subject})
-                 }
-              }
-              finally {
-                  client.close();
-              }
-          })().catch(err => console.error(err));
-      }
-      rs()  
-      var mongo = {
-        add(subject){
-        (async () => {
-              const client = await MongoClient.connect(connectionString,
-                  { useNewUrlParser: true });
-              const dbo = client.db('todos');
-              try {
-                var res = await dbo.collection('todo').insertMany(
-                  [{subject:subject}]);
-              }
-              finally {
-                  client.close();
-              }
-          })().catch(err => console.error(err));
-        },
-        del(index){
-              (async () => {
-                var _id = todos[index]._id
-                console.log(_id +" will deleted ");
-                const client = await MongoClient.connect(connectionString,
-                    { useNewUrlParser: true });
-                const dbo = client.db('todos');
-                try {
-                  var myquery = {_id:_id}
+      (async () => {
+          const client = await MongoClient.connect(connectionString,
+              { useNewUrlParser: true });
+          const dbo = client.db('todos');
+          try {
+             var res = await dbo.collection('todo').insertOne(
+              {subject:subject})
+             callback(undefined,res.insertedId)
+          }
+          catch(err){
+            callback(err)
+          }
+          finally {
+              client.close();
+          }
+      })().catch(err => console.error(err));
+    }
+    function deleteDoc(_id,callback){
+      const MongoClient = mongo.MongoClient;
+      const connectionString = 'mongodb://localhost:27017';
+      (async () => {
+          const client = await MongoClient.connect(connectionString,
+              { useNewUrlParser: true });
+          const dbo = client.db('todos');
+          try {
+                  var myquery = {_id:new mongo.ObjectID(_id)}
                   var r = await dbo.collection("todo").deleteMany(myquery)
-                  console.log("document deleted",r.result.n);
-                }
-                finally {
-                    client.close();
-                }
-            })().catch(err => console.error(err));
-        }
-      }
-      app.delete('/api/todo/:id', function (req, res) {
-        var userkey = +req.params.id
-        mongo.del(userkey)
-        todos.splice(userkey,1)
+            }
+            catch(err){
+            callback(err)
+          }
+          finally {
+                client.close();
+                callback()
+            }
+      })().catch(err => console.error(err));
+    }
+    function allDoc(callback){
+      const MongoClient = mongo.MongoClient;
+      const connectionString = 'mongodb://localhost:27017';
+      (async () => {
+          const client = await MongoClient.connect(connectionString,
+              { useNewUrlParser: true });
+          const dbo = client.db('todos');
+          try {
+                 var r = await dbo.collection("todo").find().toArray()
+                 var ts = []
+                 for (var i = 0; i < r.length; i++) {
+                   ts.push({id:r[i]._id,subject:r[i].subject})
+                 }
+                 callback(undefined,ts)
+            }
+            catch(err){
+            callback(err)
+          }
+          finally {
+                client.close();
+            }
+      })().catch(err => console.error(err));
+    }
+
+这三个函数的功能和使用方法如下：
+
+1. 函数allDoc会从Mongodb内获取全部todo集合，并通过callback传递这个集合给调用者函数。
+2. 函数deleteDoc会从Mongodb内删除指定id的todo条目，完成删除后，通过callback通知调用者。
+3. 函数deleteDoc会向Mongodb内添加一个todo条目，完成添加后，通过callback通知调用者，并传递新的todo对象给调用者。
+
+这里的代码本身并不复杂，但是因为涉及到如何访问Mongodb，因此涉及到比较多的概念，这里不做具体的解释，你可以先把它们用起来。如果完成了本教程后，希望对Mongodb的访问做具体了解的话，可以查看后文附录的“Mongodb快速参考”。
+
+并且和App Server对应的代码接驳，把原来的路由代码替换如下：
+
+    app.delete('/api/todo/:id', function (req, res) {
+      var userkey = req.params.id
+      deleteDoc(userkey,function(){
+        todos.splice(indexById(userkey),1)
         res.end( JSON.stringify(todos));
+      })
+    })
+    app.get('/api/todos', function (req, res) {
+      allDoc(function(err,todos){
+        res.end( JSON.stringify(todos));  
+      })
+    })
+    app.post('/api/todo', function (req, res) {
+      insertDoc(req.body.subject,function(err,_id){
+        var obj ={id:_id,subject:req.body.subject}
+      todos.push(obj)
+      res.end(JSON.stringify(obj))
         rs()
       })
-      app.get('/api/todo/:id', function (req, res) {
-        var userkey = +req.params.id
-        res.end( JSON.stringify(todos[userkey]));
-      })
-      app.get('/api/todos', function (req, res) {
-        var t = []
-        for (var i = 0; i < todos.length; i++) {
-          t.push(todos[i].subject)
-        }
-        res.end( JSON.stringify(t));
-      })
-      app.post('/api/todo', function (req, res) {
-        mongo.add(req.body.subject)
-        res.end(JSON.stringify(todos))
-        rs()
-      })
-      var server = app.listen(8081, function () {
-        var host = server.address().address
-        var port = server.address().port
-        console.log("listening at http://%s:%s", host, port)
-      })
-      
+    })
+
+     
 # Mongodb快速参考
 
 本文会把一个对象todo对象（有属性{id，name})存储到Mongodb，做查询删除的测试（Create Remove Delete = CRD）。这个测试包括使用Mongodb Shell，使用CallBack古典风格的访问代码，以及使用Await/Async的现代风格的代码。完成这个这个验证后，就可以掌握最初步的Mongodb了。
@@ -875,10 +872,15 @@ axios的语法和fetch的大同小异，看着也是比较简洁美观的。以�
       { _id: 5b72ae8a1c674a6ac1c5aa6f, id: 2, name: 'rita' } ]
     document deleted
 
-## vue-cli快速参考
-## cli-service快速参考
-## Nodejs快速参考
 ## Vuejs快速参考
+
+Vuejs本身要学的还真不少，这也是我会编写一本书来介绍它的原因。但是说到入门的话，我倒是写过一篇简单的[介绍文章](https://segmentfault.com/a/1190000007548442)。不妨去阅读看看。
+
+上面的文章，也就对Vuejs了解个大概，提起一个兴趣。如果真的想要学习Vuejs的话，还是得看书的。这里也放一个我的书的广告，欢迎参阅。
+
+![ad](images/ad.png)
+[购买](http://www.ituring.com.cn/book/1956)
+
 ## 问题索引
 
 麻雀虽小五脏俱全，虽然是一个小小的示例的应用，但是每样技术也都需要用到，遇到的技术问题也是要一个个的解决的。这里列出我遇到的问题，作为索引，也算记录我在写作过程中解决的问题，也可以作为你学习完毕后的一个查漏补缺的索引，在这里重新看到问题，然后使用代码验证自己对问题的理解和学习。
