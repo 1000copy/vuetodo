@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "test": "ava"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -16,6 +17,7 @@
   },
   "devDependencies": {
     "@vue/cli-service": "^3.0.0",
+    "ava": "^0.25.0",
     "vue-template-compiler": "^2.5.17"
   }
 }
