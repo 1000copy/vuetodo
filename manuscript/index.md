@@ -770,12 +770,12 @@ axios的语法和fetch的大同小异，看着也是比较简洁美观的。以�
     
 (若database不存在，则会创建一个，此时若不做任何操作直接退出，则MongoDB会删除该数据库)
 
-    db.todos.insert({id:1,name:"reco"})
-    db.todos.insert({id:2,name:"rita"})
+    db.todo.insert({id:1,name:"reco"})
+    db.todo.insert({id:2,name:"rita"})
 
 查询 ：
 
-    db.todos.find()
+    db.todo.find()
 
     { "_id" : ObjectId("5b727c0846b6c71a98d3af52"), "id" : 1, "name" : "reco" }
     { "_id" : ObjectId("5b727c7046b6c71a98d3af53"), "id" : 2, "name" : "reta" }
@@ -876,7 +876,7 @@ Vuejs本身要学的还真不少，这也是我会编写一本书来介绍它的
 
 上面的文章，也就对Vuejs了解个大概，提起一个兴趣。如果真的想要学习Vuejs的话，还是得看书的。这里也放一个我的书的广告，欢迎参阅。
 
-![ad](images/ad.png)
+![ad](http://file.ituring.com.cn/ScreenShow/010061ef0b279fb427bf)
 [购买](http://www.ituring.com.cn/book/1956)
 
 # 问题索引
