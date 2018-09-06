@@ -43,13 +43,31 @@ function httpreload(cb){
       })
       .catch( err => console.error(err))
 }
+var getTodoById= (state, id) => {
+  for (var i = 0; i < state.todos.length; i++) {
+    var todo = state.todos[i]
+    if (todo.id == id )return todo
+  }
+  return undefined
+}
 import axios from 'axios'
 export default new Vuex.Store({
+  getters: {
+  },
   state: {
   	msg:'Todo App',
-  	todos:defaultTodo
+  	todos:defaultTodo,
+    activeId : '',
+    activeTodo:{}
   },
   mutations: {
+    setId(state,id){
+      state.activeId = id 
+      state.activeTodo = getTodoById(state,id)
+    },
+    saveIt(state, subject){
+      state.activeTodo.subject = subject
+    },
   	add(state,subject){
       httpadd(subject,function(todo){
         state.todos.push(todo)
@@ -69,7 +87,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-	add: (context, link) => {       // Add this:
+	  add: (context, link) => {       // Add this:
       context.commit("add", link)
     },
     remove: (context, link) => {       // Add this:
@@ -77,6 +95,12 @@ export default new Vuex.Store({
     },
     reload: (context) => {       // Add this:
       context.commit("reload")
+    },
+    setId:(context,id) =>{
+      context.commit("setId",id)
+    },
+    saveIt:(context,subject) =>{
+      context.commit("saveIt",subject)
     }
   }
 })

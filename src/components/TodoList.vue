@@ -19,10 +19,11 @@ export default {
   },
   methods:{
   	...mapActions([
-      'remove','reload'
+      'remove','reload','setId'
     ]),
     edit(id){
-      console.log(id)
+      // console.log(id,this.msg)
+      this.setId(id)
       this.$modal.open({
           parent: this,
           component: ModalForm,
